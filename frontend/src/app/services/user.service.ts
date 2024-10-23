@@ -1,49 +1,27 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { User, AddBalanceResponse } from '../models/user.model';
+import { BaseService } from './base.service';
 import { catchError } from 'rxjs/operators';
-import { AddBalanceResponse, User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
-  private apiUrl = 'http://localhost:3000/v1/users';
-
-  constructor(private http: HttpClient) {}
-
-  private getToken(): string | null {
-    return localStorage.getItem('token');
+export class UserService extends BaseService {
+  constructor(http: HttpClient) {
+    super(http);
   }
 
   getUserDetails(): Observable<User> {
-    const token = this.getToken();
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-
     return this.http
-      .get<User>(`${this.apiUrl}/me`, { headers })
+      .get<User>(`${this.apiUrl}/users/me`)
       .pipe(catchError(this.handleError));
   }
 
   addBalance(amount: number): Observable<AddBalanceResponse> {
-    const token = this.getToken();
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-
     return this.http
-      .post<AddBalanceResponse>(
-        `${this.apiUrl}/add-balance`,
-        { amount },
-        { headers }
-      )
+      .post<AddBalanceResponse>(`${this.apiUrl}/users/add-balance`, { amount })
       .pipe(catchError(this.handleError));
-  }
-
-  private handleError(error: any): Observable<never> {
-    console.error('An error occurred:', error);
-    return throwError(error);
   }
 }

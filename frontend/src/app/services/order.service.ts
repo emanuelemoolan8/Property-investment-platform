@@ -1,26 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Order } from '../models/order.model';
+import { BaseService } from './base.service';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
-export class OrderService {
-  private apiUrl = 'http://localhost:3000/v1';
-
-  constructor(private http: HttpClient) {}
-
-  private getHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');
-    return new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
+export class OrderService extends BaseService {
+  constructor(http: HttpClient) {
+    super(http);
   }
 
   placeOrder(order: Order): Observable<any> {
-    return this.http.post(`${this.apiUrl}/orders`, order, {
-      headers: this.getHeaders(),
-    });
+    return this.http
+      .post(`${this.apiUrl}/orders`, order)
+      .pipe(catchError(this.handleError));
   }
 }

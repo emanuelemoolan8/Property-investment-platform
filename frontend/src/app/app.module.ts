@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { PropertyDetailComponent } from './components/property-detail/property-detail.component';
-import { HttpClientModule } from '@angular/common/http'; // For API calls
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'; // For API calls
 
 // Import Angular Material modules
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -36,6 +36,7 @@ import { AddPropertyDialogComponent } from './components/dialogs/add-property-di
 import { CommonDialogComponent } from './components/dialogs/common-dialog/common-dialog.component';
 import { CurrencyPipe } from '@angular/common';
 import { UserOrderDetailsDialogComponent } from './components/dialogs/user-order-details-dialog/user-order-details-dialog.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,10 @@ import { UserOrderDetailsDialogComponent } from './components/dialogs/user-order
     MatSnackBarModule,
     MatSelectModule,
   ],
-  providers: [CurrencyPipe],
+  providers: [
+    CurrencyPipe,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
