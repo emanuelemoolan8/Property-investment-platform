@@ -9,10 +9,11 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBarService } from '../services/snackbar.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(private snackBarService: SnackBarService) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -41,12 +42,10 @@ export class AuthInterceptor implements HttpInterceptor {
         } else if (error.status === 500) {
           errorMessage = 'An internal server error occurred.';
         } else {
-          errorMessage = 'An unexpected error occurred. Please try again.';
+          errorMessage = error.error.message;
         }
 
-        this.snackBar.open(errorMessage, 'Close', {
-          duration: 3000,
-        });
+        this.snackBarService.openSnackbar(errorMessage, 'error');
 
         return throwError(() => new Error(errorMessage));
       })

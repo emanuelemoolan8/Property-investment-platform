@@ -8,6 +8,7 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import * as TE from 'fp-ts/TaskEither';
 import { UsersRepository } from './users.repository';
 import { UserRole } from 'src/types/req-user.interface';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UsersService {
@@ -38,18 +39,28 @@ export class UsersService {
     }
   }
 
-  async findByEmail(email: string) {
+  async findUserByEmail(email: string): Promise<any> {
+    const user = await this.usersRepository.findUserByEmail(email);
+    return user || null;
+  }
+
+  async validateUserByEmail(email: string, pass: string) {
     const user = await this.usersRepository.findUserByEmail(email);
     if (!user) {
-      throw new NotFoundException('User not found by email in service');
+      throw new NotFoundException('User not found for authentication');
     }
-    return user;
+    const passwordMatch = await bcrypt.compare(pass, user.password);
+    if (!passwordMatch) {
+      throw new ConflictException('Invalid credentials');
+    }
+    const { password, ...result } = user;
+    return result;
   }
 
   async findUserById(id: number) {
     const user = await this.usersRepository.findUserById(id);
     if (!user) {
-      throw new NotFoundException('User not found from service');
+      throw new NotFoundException('User not found');
     }
 
     const { password, ...result } = user;
