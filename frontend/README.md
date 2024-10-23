@@ -1,7 +1,3 @@
-Here's an improved version of the README file for the **Property investment platform** project, with additional details and clearer instructions:
-
----
-
 # Property investment platform
 
 This project is a **Property investment platform** built with Angular and Material-UI, generated using [Angular CLI](https://github.com/angular/angular-cli) version 15.2.5. The platform allows users to browse, view, and manage real estate properties with a user-friendly interface.
@@ -127,7 +123,3 @@ The main structure of the project is as follows:
 ## License
 
 This project is licensed under the MIT License.
-
----
-
-This version of the README adds better structure and clarifies common project tasks while providing a more detailed overview of the project setup and dependencies.
