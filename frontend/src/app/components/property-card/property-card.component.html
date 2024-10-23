@@ -1,0 +1,65 @@
+<a
+  mat-card
+  class="property-card"
+  [ngClass]="{
+    'disabled-card': property.status === 'hidden'
+  }"
+  (click)="
+    property.status !== 'hidden' && property.status !== 'not_available'
+      ? viewDetails()
+      : null
+  "
+  [routerLink]="
+    property.status !== 'hidden' && property.status !== 'not_available'
+      ? ['/property', property.id]
+      : null
+  "
+  style="text-decoration: none"
+>
+  <div class="status-container">
+    <span class="status {{ property.status.toLowerCase() }}">{{
+      property.status
+    }}</span>
+  </div>
+  <img
+    mat-card-image
+    [src]="property.imageUrl || 'https://via.placeholder.com/400'"
+    alt="{{ property.city }}"
+    class="property-image"
+  />
+  <mat-card-content>
+    <div>
+      <span class="details-left sold">Sold: {{ property.soldPieces }}</span>
+      <span
+        *ngIf="property.status !== 'not_available'"
+        class="details-right available"
+      >
+        Available: {{ property.availablePieces }}
+      </span>
+    </div>
+    <div class="property-details">
+      <div class="details-left">
+        <p class="property-text-main">{{ property.city }}</p>
+        <p class="property-text-secondary">{{ property.address }}</p>
+      </div>
+      <div class="details-right">
+        <p class="property-text-main">{{ property.unitPrice | currency }}</p>
+        <p class="property-text-secondary">per share</p>
+      </div>
+    </div>
+    <p class="last-update">
+      <strong>Last Updated At:</strong>
+      {{ property.updatedAt | date : "short" }}
+    </p>
+
+    <button
+      *ngIf="currentUser?.role === 'PROPERTY_MANAGER'"
+      mat-button
+      color="warn"
+      (click)="deleteProperty()"
+      class="delete-button"
+    >
+      Delete Property
+    </button>
+  </mat-card-content>
+</a>

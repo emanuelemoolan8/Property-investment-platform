@@ -1,0 +1,47 @@
+<!-- Home Page -->
+<section class="home">
+  <div class="user-header">
+    <h4>{{ userName }}</h4>
+    <span class="role-type-status">{{ roleType }}</span>
+  </div>
+
+  <div *ngIf="isPropertyManager" class="welcome-section">
+    <strong>Welcome, Property Manager!</strong>
+  </div>
+</section>
+
+<div *ngIf="!isPropertyManager" class="user-details-section">
+  <app-user-details-card [fundStatus]="fundStatus"></app-user-details-card>
+</div>
+
+<section class="featured-properties">
+  <h2 class="section-title">Featured Properties</h2>
+
+  <div *ngIf="isPropertyManager" class="add-property-button">
+    <button mat-raised-button color="primary" (click)="openAddPropertyDialog()">
+      Add Property
+    </button>
+  </div>
+
+  <ng-container *ngIf="featuredProperties.length === 0; else propertyList">
+    <div class="no-properties">
+      <p>No properties available at the moment.</p>
+    </div>
+  </ng-container>
+
+  <ng-template #propertyList>
+    <div class="property-grid">
+      <app-property-card
+        *ngFor="let property of featuredProperties"
+        [property]="property"
+        class="property-card"
+      ></app-property-card>
+    </div>
+  </ng-template>
+</section>
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>&copy; 2024 Real Estate Platform. All rights reserved.</p>
+  </div>
+</footer>

@@ -1,0 +1,65 @@
+<div class="auth-container">
+  <h2>Login</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
+    <mat-form-field appearance="outline" class="input-field">
+      <mat-label>Email</mat-label>
+      <mat-icon matPrefix>mail</mat-icon>
+      <input matInput formControlName="email" required />
+      <mat-error
+        *ngIf="
+          loginForm.get('email')?.invalid &&
+          (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)
+        "
+      >
+        <span *ngIf="loginForm.get('email')?.errors?.['required']"
+          >Email is required</span
+        >
+        <span *ngIf="loginForm.get('email')?.errors?.['email']"
+          >Invalid email format</span
+        >
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="input-field">
+      <mat-label>Password</mat-label>
+      <mat-icon matPrefix>lock</mat-icon>
+      <input matInput formControlName="password" type="password" required />
+      <mat-error
+        *ngIf="
+          loginForm.get('password')?.invalid &&
+          (loginForm.get('password')?.dirty ||
+            loginForm.get('password')?.touched)
+        "
+      >
+        <span *ngIf="loginForm.get('password')?.errors?.['required']"
+          >Password is required</span
+        >
+      </mat-error>
+    </mat-form-field>
+
+    <!-- <div class="remember-me-container">
+      <mat-checkbox formControlName="rememberMe">Remember Me</mat-checkbox>
+    </div> -->
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="login-button"
+      [disabled]="loading"
+    >
+      Login
+    </button>
+
+    <div *ngIf="loading" class="loading-spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  </form>
+
+  <p class="register-prompt">
+    Don't have an account?
+    <a [routerLink]="['/register']" class="register-link">Register</a>
+  </p>
+</div>

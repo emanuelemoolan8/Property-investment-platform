@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Order Details</h2>
+<div mat-dialog-content>
+  <p *ngIf="orderCount === 0">You have no orders.</p>
+  <ng-container *ngIf="orderCount > 0">
+    <p>You have {{ orderCount }} order(s).</p>
+    <div *ngFor="let order of orders" class="order-item">
+      <h4>Order ID: {{ order.id }}</h4>
+      <p>Pieces: {{ order.pieces }}</p>
+      <p>Pieces: {{ order.pieces }}</p>
+      <p>Amount: ${{ order.amount | number : "1.2-2" }}</p>
+      <p>Date: {{ order.createdAt | date : "medium" }}</p>
+    </div>
+  </ng-container>
+</div>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="onClose()">Close</button>
+</div>

@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Property {
+  id              Int            @id @default(autoincrement())
+  city            String
+  address         String
+  totalPieces     Int
+  availablePieces Int
+  soldPieces      Int
+  unitPrice       Float
+  status          PropertyStatus
+  orders          Order[]
+  imageUrl        String
+
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt       
+
+  @@map("Property")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  name      String?
+  password  String    
+  balance   Float     @default(0.0) 
+  role      UserRole  @default(INVESTOR) 
+
+  orders    Order[]   
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("User")
+}
+
+enum UserRole {
+  INVESTOR 
+  PROPERTY_MANAGER 
+}
+
+
+model Order {
+  id         Int      @id @default(autoincrement())
+  propertyId Int
+  pieces     Int
+  amount     Float    
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt  DateTime @default(now())  
+  updatedAt  DateTime @updatedAt      
+
+  @@map("Order")
+}
+
+
+
+enum PropertyStatus {
+  available
+  not_available
+  hidden
+}

@@ -1,0 +1,31 @@
+<mat-drawer-container class="drawer-container">
+  <mat-drawer #drawer mode="side" class="drawer" opened>
+    <div class="drawer-content">
+      <div class="drawer-header">
+        <div>
+          <img src="assets/logo.svg" alt="Piece" class="header-image" />
+          <h3 class="subtitle">RE Investment Platform</h3>
+        </div>
+      </div>
+
+      <mat-nav-list>
+        <ng-container *ngFor="let item of navItems">
+          <a
+            mat-list-item
+            [routerLink]="item.link"
+            (click)="item.action ? item.action() : null"
+            class="nav-item"
+          >
+            <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
+            <span class="nav-label">{{ item.label }}</span>
+          </a>
+        </ng-container>
+      </mat-nav-list>
+    </div>
+
+    <button class="logout-button" (click)="onLogout()">
+      <mat-icon>logout</mat-icon>
+      <span class="logout-label">Logout</span>
+    </button>
+  </mat-drawer>
+</mat-drawer-container>

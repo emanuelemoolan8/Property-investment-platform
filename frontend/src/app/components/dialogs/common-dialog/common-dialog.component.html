@@ -1,0 +1,9 @@
+<h1 mat-dialog-title class="dialog-title">{{ data.title }}</h1>
+<mat-card class="dialog-card">
+  <mat-card-content>
+    <div [innerHTML]="safeContent"></div>
+  </mat-card-content>
+</mat-card>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-button color="primary" (click)="onClose()">Close</button>
+</div>

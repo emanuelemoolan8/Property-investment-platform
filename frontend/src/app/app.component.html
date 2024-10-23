@@ -1,0 +1,6 @@
+<div class="app-container">
+  <app-sidebar *ngIf="isLoggedIn()"></app-sidebar>
+  <div class="main-content" [ngClass]="{ centered: !isLoggedIn() }">
+    <router-outlet></router-outlet>
+  </div>
+</div>

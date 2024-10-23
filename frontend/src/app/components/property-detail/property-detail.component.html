@@ -1,0 +1,50 @@
+<div *ngIf="property" class="property-detail-container">
+  <mat-card class="property-detail-card">
+    <div class="property-detail-header">
+      <div class="property-info">
+        <h2 class="property-title">
+          {{ property.city }} - {{ property.address }}
+        </h2>
+        <p>
+          <strong>Price per Piece:</strong> {{ property.unitPrice | currency }}
+        </p>
+        <p><strong>Total Pieces:</strong> {{ property.totalPieces }}</p>
+        <p><strong>Available Pieces:</strong> {{ property.availablePieces }}</p>
+        <p><strong>Sold Pieces:</strong> {{ property.soldPieces }}</p>
+        <p><strong>Status:</strong> {{ property.status | titlecase }}</p>
+      </div>
+      <img
+        [src]="property.imageUrl || 'https://via.placeholder.com/400'"
+        alt="{{ property.city }}"
+        class="property-image"
+      />
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div *ngIf="currentUser?.role === 'INVESTOR'" class="order-section">
+      <h3>Order Your Pieces</h3>
+      <div class="order-form">
+        <mat-form-field appearance="fill">
+          <mat-label>Order Pieces</mat-label>
+          <input
+            matInput
+            type="number"
+            id="pieces"
+            min="1"
+            [max]="property.availablePieces"
+            [(ngModel)]="pieces"
+          />
+        </mat-form-field>
+        <button
+          mat-raised-button
+          class="order-button"
+          (click)="orderPieces(pieces)"
+          [disabled]="!pieces || pieces <= 0"
+        >
+          Order Now
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</div>

@@ -1,0 +1,5 @@
+-- CreateEnum
+CREATE TYPE "UserRole" AS ENUM ('INVESTOR', 'PROPERTY_MANAGER');
+
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "role" "UserRole" NOT NULL DEFAULT 'INVESTOR';

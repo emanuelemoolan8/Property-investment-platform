@@ -1,0 +1,103 @@
+@import "./variables";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+:root {
+  --primary-color: #4caf50;
+  --accent-color: #ff4081;
+  --warn-color: #f44336;
+  --light-green: #f5fbf646;
+  --primary-green: #007a33;
+  --dark-green: #005d26;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background-color: var(--light-green);
+  color: #333;
+}
+
+.mat-dialog-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.mat-button {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.mat-button:hover {
+  background-color: #388e3c;
+}
+
+.dialog-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5em;
+  margin-bottom: 16px;
+  color: var(--primary-green);
+}
+
+mat-card {
+  padding: 16px;
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+button {
+  background-color: var(--primary-green);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: rgba(57, 89, 80, 1);
+  color: #ffffff;
+}
+
+a {
+  color: var(--primary-green);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.auth-container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.sidenav-container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 250px;
+  background: white;
+}
+
+.collapsed {
+  width: 64px;
+}
+
+.custom-dialog-container {
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+.mat-form-field {
+  width: 100%;
+}

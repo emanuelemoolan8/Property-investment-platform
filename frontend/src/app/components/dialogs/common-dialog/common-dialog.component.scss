@@ -1,0 +1,28 @@
+.dialog-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5em;
+  margin-bottom: 16px;
+}
+
+.dialog-card {
+  padding: 16px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+}
+
+.dialog-actions {
+  justify-content: flex-end;
+  padding: 10px 16px;
+}
+
+mat-card-content {
+  margin: 16px 0;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .dialog-title {
+    font-size: 1.2em;
+  }
+}

@@ -1,0 +1,20 @@
+<div class="user-details-card">
+  <div class="fund-details">
+    <div class="fund-item">
+      <p>Fund Status</p>
+      <h3>${{ fundStatus | number : "1.2-2" }}</h3>
+    </div>
+    <div class="fund-item" (click)="showOrderDetails()" style="cursor: pointer">
+      <p>Orders</p>
+      <h3>{{ orderCount }}</h3>
+      <p>View Details</p>
+    </div>
+    <div class="fund-item">
+      <p>Total Profit <span style="color: green">↑</span></p>
+      <h3>${{ 50 | number : "1.0-0" }}</h3>
+    </div>
+  </div>
+  <div class="action-button">
+    <button class="add-balance" (click)="addBalance()">Add Balance</button>
+  </div>
+</div>
