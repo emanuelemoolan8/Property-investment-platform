@@ -54,7 +54,8 @@ export class PropertyDetailComponent implements OnInit {
           (error) => {
             console.error('Order placement failed:', error);
             this.snackBarService.openSnackbar(
-              'Failed to place order. Please try again.' + error.error.message,
+              'Failed to place order. Please try again.' +
+                (error.error?.message || error.message || 'Unknown error'),
               'error'
             );
           }

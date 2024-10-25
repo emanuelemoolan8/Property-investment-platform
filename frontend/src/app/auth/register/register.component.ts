@@ -48,10 +48,17 @@ export class RegisterComponent {
         (error) => {
           console.error('Registration failed:', error);
           this.errorMessage =
-            'Registration failed. Please try again. ' + error.error.message;
+            'Registration failed. Please try again. ' +
+            (error.error?.message || error.message || 'Unknown error');
           this.snackBarService.openSnackbar(this.errorMessage, 'error');
           this.loading = false;
+          this.registerForm.reset();
         }
+      );
+    } else {
+      this.snackBarService.openSnackbar(
+        'Please fix the errors in the form.',
+        'error'
       );
     }
   }

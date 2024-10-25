@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "real-estate-platform": {
+    "property-investment-platform": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/real-estate-platform",
+            "outputPath": "dist/property-investment-platform",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -62,10 +62,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "real-estate-platform:build:production"
+              "browserTarget": "property-investment-platform:build:production"
             },
             "development": {
-              "browserTarget": "real-estate-platform:build:development"
+              "browserTarget": "property-investment-platform:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -73,7 +73,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "real-estate-platform:build"
+            "browserTarget": "property-investment-platform:build"
           }
         },
         "test": {

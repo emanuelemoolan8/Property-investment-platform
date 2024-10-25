@@ -32,7 +32,8 @@ export class AddBalanceDialogComponent {
       (error) => {
         console.error('Error adding balance:', error);
         this.snackBarService.openSnackbar(
-          'Error adding balance!' + error.error.message,
+          'Error adding balance!' +
+            (error.error?.message || error.message || 'Unknown error'),
           'error'
         );
         this.dialogRef.close(false);

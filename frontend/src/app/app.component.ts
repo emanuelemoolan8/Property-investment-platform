@@ -8,7 +8,7 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'real-estate-platform';
+  title = 'property-investment-platform';
 
   isCollapsed = false;
 

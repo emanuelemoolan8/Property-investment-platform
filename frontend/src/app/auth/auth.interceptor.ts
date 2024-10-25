@@ -33,20 +33,28 @@ export class AuthInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         let errorMessage = '';
 
-        if (error.status === 401) {
-          errorMessage = 'Unauthorized access. Please log in again.';
-        } else if (error.status === 403) {
-          errorMessage = 'Access forbidden. You do not have permission.';
-        } else if (error.status === 404) {
-          errorMessage = 'Resource not found.';
-        } else if (error.status === 500) {
-          errorMessage = 'An internal server error occurred.';
-        } else {
-          errorMessage = error.error.message;
+        switch (error.status) {
+          case 401:
+            errorMessage = 'Unauthorized access. Please log in again.';
+            break;
+          case 403:
+            errorMessage = 'Access forbidden. You do not have permission.';
+            break;
+          case 404:
+            errorMessage = 'Resource not found.';
+            break;
+          case 500:
+            errorMessage = 'An internal server error occurred.';
+            break;
+          default:
+            errorMessage =
+              error.error?.message || 'An unexpected error occurred.';
+            break;
         }
-
+        console.log(errorMessage);
         this.snackBarService.openSnackbar(errorMessage, 'error');
 
+        // Optionally, do not throw an error, just return an observable
         return throwError(() => new Error(errorMessage));
       })
     );

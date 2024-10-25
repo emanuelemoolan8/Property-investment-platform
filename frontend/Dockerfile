@@ -8,6 +8,11 @@ RUN npm run build --prod
 
 # Stage 2: Serve the Angular app using Nginx
 FROM nginx:alpine
-COPY --from=build /app/dist/<your-angular-app> /usr/share/nginx/html
-EXPOSE 80
+
+COPY --from=build /app/dist/property-investment-platform /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 8080
+
 CMD ["nginx", "-g", "daemon off;"]
