@@ -96,14 +96,7 @@ out/
 .cache/
 .web_modules/
 
-# Ignore Angular specific files
-src/environments/environment.prod.ts
-src/environments/environment.ts
-
-
 
 # Ignore Angular specific files
 frontend/src/environments/environment.prod.ts
 frontend/src/environments/environment.ts
-
-.vscode/

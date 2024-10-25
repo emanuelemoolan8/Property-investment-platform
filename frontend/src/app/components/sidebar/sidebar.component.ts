@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { CommonDialogComponent } from '../dialogs/common-dialog/common-dialog.component';
 import { CurrencyPipe } from '@angular/common';
 import { User } from 'src/app/models/user.model';
+import { Subscription } from 'rxjs';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,6 +17,9 @@ import { User } from 'src/app/models/user.model';
 export class SidebarComponent implements OnInit {
   userDetails: User | null = null;
   isCollapsed = false;
+  isMobileView = false;
+  drawerOpen = true;
+  private subscription: Subscription | null = null;
 
   navItems = [
     { label: 'Dashboard', icon: 'dashboard', link: '/' },
@@ -28,6 +33,11 @@ export class SidebarComponent implements OnInit {
       icon: 'person',
       action: () => this.openUserDetailsDialog(),
     },
+    {
+      label: 'Logout',
+      icon: 'logout',
+      action: () => this.onLogout(),
+    },
   ];
 
   constructor(
@@ -35,17 +45,32 @@ export class SidebarComponent implements OnInit {
     private userService: UserService,
     private dialog: MatDialog,
     private currencyPipe: CurrencyPipe,
-    private authService: AuthService
+    private authService: AuthService,
+    private breakpointObserver: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
     if (this.isLoggedIn()) {
       this.fetchUserDetails();
     }
+
+    this.subscription = this.breakpointObserver
+      .observe([Breakpoints.Handset])
+      .subscribe((result) => {
+        this.isMobileView = result.matches;
+        this.drawerOpen = !this.isMobileView;
+      });
   }
 
-  toggleSidenav() {
-    this.isCollapsed = !this.isCollapsed;
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
+  onNavItemClick(item: any) {
+    if (item.action) item.action();
+    if (this.isMobileView) this.drawerOpen = false;
   }
 
   isLoggedIn(): boolean {
